@@ -45,12 +45,12 @@ public class MisApplication {
 			studentRepository.findAll().forEach(System.out::println);
 			
 			System.out.println("\nFind a student by id:|| ");
-			studentRepository.findById(1L).ifPresent(System.out::println);
+			studentRepository.findById(2L).ifPresent(System.out::println);
 			
-			Student student4 = new Student(3L, "Paul", "Gasana", "pgasana@gmail.com", localDate2);
+			Student student4 = new Student(4L, "Paul", "Gasana", "pgasana@gmail.com", localDate2);
 			studentRepository.save(student4);
-			studentRepository.deleteById(2L);
-			System.out.println("AFTER DELETING WITH STUDENT ID 2L");
+			studentRepository.deleteById(3L);
+			System.out.println("RECORDS AFTER DELETING WITH STUDENT ID 2L: ");
 			List<Student> st=studentRepository.findAll();
 			for(Student stud:st) {
 				System.out.println(stud);
