@@ -1,28 +1,37 @@
 package com.bgroup.mis.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
-@Entity
+@Entity(name = "pupil")
 public class Student {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name="fname",nullable=false,length=50)
+	@Column(name = "fname", nullable = false, length = 80)
 	private String firstName;
+	@Column(unique = true, length = 150)
+	private String lastName;
+	@Column(unique = true, length = 120)
 	private String email;
-	private Date dob;
+	@Column(nullable = false)
+	private LocalDate dob;
+	@Transient
 	private int age;
-	/**
-	 * @param id
-	 * @param firstName
-	 * @param email
-	 * @param dob
-	 * @param age
-	 */
-	public Student(Long id, String firstName, String email, Date dob, int age) {
+
+	public Student() {
+
+	}
+
+	public Student(Long id, String firstName, String email, LocalDate dob, int age) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -30,65 +39,70 @@ public class Student {
 		this.dob = dob;
 		this.age = age;
 	}
-	/**
-	 * @return the id
-	 */
+
+	public Student(Long id, String firstName, String lastName, String email, LocalDate dob) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.dob = dob;
+	}
+
+	public Student(String firstName, String lastName, String email, LocalDate dob) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.dob = dob;
+	}
+
 	public Long getId() {
 		return id;
 	}
-	/**
-	 * @param id the id to set
-	 */
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	/**
-	 * @return the firstName
-	 */
+
 	public String getFirstName() {
 		return firstName;
 	}
-	/**
-	 * @param firstName the firstName to set
-	 */
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	/**
-	 * @return the email
-	 */
+
 	public String getEmail() {
 		return email;
 	}
-	/**
-	 * @param email the email to set
-	 */
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	/**
-	 * @return the dob
-	 */
-	public Date getDob() {
+
+	public LocalDate getDob() {
 		return dob;
 	}
-	/**
-	 * @param dob the dob to set
-	 */
-	public void setDob(Date dob) {
+
+	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
-	/**
-	 * @return the age
-	 */
+
 	public int getAge() {
-		return age;
+		if (this.dob != null)
+			return (Period.between(this.dob, LocalDate.now())).getYears();
+		return 0;
 	}
-	/**
-	 * @param age the age to set
-	 */
+
 	public void setAge(int age) {
 		this.age = age;
 	}
-	 
+
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", dob=" + dob + ", age=" + age + "]";
+	}
+
 }
