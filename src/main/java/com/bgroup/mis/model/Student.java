@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
 
+@Table(name="students")
 @Entity(name = "pupil")
 public class Student {
     @Id

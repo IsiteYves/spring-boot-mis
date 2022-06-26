@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/students")
+@CrossOrigin("http://localhost:8000")
 public class StudentController {
     @Autowired
     private StudentService studentService;
